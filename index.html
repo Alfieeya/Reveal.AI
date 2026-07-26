@@ -1,173 +1,142 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reveal.AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reveal.AI</title>
 
-  <style>
-    /* LOAD MOONTIME FONT */
-    @font-face {
-      font-family: "Moontime";
-      src: url("/static/MoonTime-Regular.otf") format("opentype");
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-    }
-
-    /* BACKGROUND */
-    .landing {
-      height: 100vh;
-      width: 100%;
-      background:#ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .center-content {
-      text-align: center;
-      animation: fadeIn 1.5s ease-in-out;
-      z-index: 2;
-      
-    }
-
-    .action-buttons {
-  margin-top: 24px;
-  display: flex;
-  gap: 16px;
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.action-buttons button {
-  flex: 1;
-  padding: 14px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 14px;
-  cursor: pointer;
+html,body{
+    height:100%;
+    font-family:Segoe UI, Arial, sans-serif;
+    background:#ffffff;
 }
 
-#cancelVideoBtn {
-  background: #7f1d1d;
-  color: white;
+.landing{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    background:#ffffff;
 }
 
-#uploadNewBtn {
-  background: #1e40af;
-  color: white;
+.center-content{
+    text-align:center;
+    animation:fadeIn 1s ease;
 }
 
-.action-buttons button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.title{
+    font-size:72px;
+    font-weight:700;
+    color:#1e3a8a;
+    cursor:pointer;
+    display:inline-block;
+    transition:transform 1.4s ease;
 }
 
+.title:hover{
+    transform:scale(1.05);
+}
 
-    /* TEXT */
-    .title {
-      font-size:72px;
-      color:#1e3a8a;   /* Navy Blue */
-      font-weight:700;
-      cursor: pointer;
-      display: inline-block;
-      transform-origin: center center;
-      transition: transform 1.6s ease;
-      will-change: transform;
-    }
+.expand{
+    transform:scale(9);
+}
 
-    .title:not(.expand):hover {
-      transform: scale(1.15);
-    }
+.tagline{
+    margin-top:18px;
+    font-size:22px;
+    color:#374151;
+}
 
-    /* CLICK EXPANSION */
-    .expand {
-      transform: scale(9);
-    }
+.white-screen{
+    position:absolute;
+    inset:0;
+    background:#ffffff;
+    opacity:0;
+    transition:opacity .6s ease;
+    pointer-events:none;
+}
 
-    .tagline {
-      margin-top: 20px;
-      font-size: 22px;
-      color:#374151;
-      font-family: Arial, sans-serif;
-    }
+.white-screen.active{
+    opacity:1;
+}
 
-    /* WHITE TRANSITION OVERLAY */
-    .white-screen {
-      position: absolute;
-      inset: 0;
-      background: #ffffff;
-      opacity: 0;
-      z-index: 5;
-      transition: opacity 0.6s ease;
-      pointer-events: none;
-    }
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
 
-    .white-screen.active {
-      opacity: 1;
-    }
+@media(max-width:768px){
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.title{
+font-size:56px;
+}
 
-    @media (max-width: 768px) {
-      .title {
-        font-size: 64px;
-      }
-    }
-  </style>
+.tagline{
+font-size:18px;
+}
+
+}
+</style>
+
 </head>
 
 <body>
-  <div class="landing">
-    <div class="center-content">
-      <span id="revealText" class="title">Reveal.AI</span>
-      <div class="tagline">
-        Uncover the truth behind AI-generated media
-      </div>
-    </div>
 
-    <div id="whiteScreen" class="white-screen"></div>
-  </div>
+<div class="landing">
+
+<div class="center-content">
+
+<div id="revealText" class="title">
+Reveal.AI
+</div>
+
+<div class="tagline">
+Uncover the truth behind AI-generated media
+</div>
+
+</div>
+
+<div id="whiteScreen" class="white-screen"></div>
+
+</div>
 
 <script>
-  const text = document.getElementById("revealText");
-  const whiteScreen = document.getElementById("whiteScreen");
-  
-  text.style.pointerEvents = "none";
-  text.classList.add("expand");
-  
-  setTimeout(() => {
-      whiteScreen.classList.add("active");
-  }, 1300);
-  
-  setTimeout(() => {
-      window.location.href = "app.html";
-  }, 1900);
 
-    // navigate after white screen
-    setTimeout(() => {
-      window.location.href = "app.html";
-    }, 1900);
-  });
+const text=document.getElementById("revealText");
+const whiteScreen=document.getElementById("whiteScreen");
+
+text.addEventListener("click",()=>{
+
+text.style.pointerEvents="none";
+
+text.classList.add("expand");
+
+setTimeout(()=>{
+whiteScreen.classList.add("active");
+},1300);
+
+setTimeout(()=>{
+window.location.href="app.html";
+},1900);
+
+});
+
 </script>
+
 </body>
 </html>
